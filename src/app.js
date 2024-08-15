@@ -5,6 +5,7 @@ const app = epxress()
 const server = http.createServer(app)
 const io = socketio(server)
 const messageModel = require("./models/messageModel")
+const path = require("path")
 
 io.on("connection", socket => {
     console.log("a user connected")
@@ -25,6 +26,7 @@ io.on("connection", socket => {
 
 
 app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'));
 
 require("./database/index")
 require("./middlewares/index")(app)
