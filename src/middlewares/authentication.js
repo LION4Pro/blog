@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const APP_SECRET = '7a995d5a-a110-4924-b0bb-de4f457de8bd'
 
 const authenticationToken = (req, res, next) => {
     const token = req.cookies.token
@@ -8,7 +9,7 @@ const authenticationToken = (req, res, next) => {
 
     try {
 
-        const verify = jwt.verify(token, process.env.APP_SECRET)
+        const verify = jwt.verify(token, APP_SECRET)
         req.user = verify
         next()
 
