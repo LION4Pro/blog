@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatroom</title>
+</head>
+<body>
+
+    
+    <ul id="messages">
+        <% messages.forEach(message => { %>
+            <li>
+                <strong><%= message.username %></strong>
+                :
+                <strong><%= message.message %></strong>
+            </li>
+            <br>
+            <% }) %>
+        </ul>
+        <form id="form">
+            <input type="hidden" id="username" value="<%= username %>" disabled>
+            <input type="text" id="message">
+            <button>Send</button>
+        </form>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+        const form = document.getElementById("form")
+        const username = document.getElementById("username")
+        const message = document.getElementById("message")
+        const messages = document.getElementById("messages")
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            if (username && message) {
+                socket.emit('chat message', {
+                    username: username.value,
+                    message: message.value,
+                })
+                message.value = ''
+            }
+        })
+
+        socket.on('chat message', (data) => {
+            const item = document.createElement("li")
+            item.textContent = `${data.username}: ${data.message}`
+            messages.appendChild(item)
+            window.scroll(0, document.body.scrollHeight)
+        })
+        
+    </script>
+    
+</body>
+</html>

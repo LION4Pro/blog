@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+  <!-- Sidebar -->
+  <div class="flex">
+        <div class="w-64 h-screen bg-gray-800 text-white p-4">
+          <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+          <ul>
+            <li class="mb-4"><a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-700">Home</a></li>
+            <li class="mb-4"><a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-700">Messages</a></li>           
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10">
+          <h1 class="text-3xl font-bold mb-8">Dashboard Posts</h1>
+        
+          <% if (successMessage && successMessage.length > 0) { %>
+            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+              <div class="flex">
+                <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                <div>
+                  <p class="font-bold">Successfuly</p>
+                  <p class="text-sm"><%= successMessage %></p>
+                </div>
+              </div>
+            </div>
+          <% } %>
+          <div style="height: 70vh; overflow: auto;">
+            <% Posts.forEach(post => { %>
+                    <div class="max-w-sm w-full lg:max-w-full lg:flex">
+                        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('/static/<%= post.image %>')" title="Woman holding a mug">
+                        </div>
+                        <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                          <div class="mb-8">
+            
+                            <div class="text-gray-900 font-bold text-xl mb-2"><%= post.title %></div>
+                            <p class="text-gray-700 text-base"><%= post.text.substr(0,20) + '...' %></p>
+                          </div>
+                          <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="/static/<%= post.image %>" alt="Avatar of Jonathan Reinink">
+                            <div class="text-sm">
+                              <p class="text-gray-900 leading-none"><%= post.author %></p>
+                              <p class="text-gray-600"><%= new Date(post.lastPosted).toLocaleString() %></p>
+                              <a href="/dashboard/posts/edit/<%= post.id %>">click to edit</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                      <% }) %>
+                    </div>
+
+       
+          <br>
+         
+         
+        </div>
+  </div>
+
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+  <!-- Sidebar -->
+  <div class="flex">
+        <div class="w-64 h-screen bg-gray-800 text-white p-4">
+          <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+          <ul>
+            <li class="mb-4"><a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-700">Home</a></li>
+            <li class="mb-4"><a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-700">Messages</a></li>           
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10">
+          <h1 class="text-3xl font-bold mb-8">Dashboard Posts</h1>
+        
+          <% if (post) { %>
+            <div style="height: 70vh; overflow: auto;">
+                <div class="max-w-sm w-full lg:max-w-full lg:flex">
+                    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('/static/<%= post.image %>')" title="Woman holding a mug">
+                    </div>
+                    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                      <div class="mb-8">
+        
+                        <div class="text-gray-900 font-bold text-xl mb-2"><%= post.title %></div>
+                        <p class="text-gray-700 text-base"><%= post.text %></p>
+                      </div>
+                      <div class="flex items-center">
+                        <img class="w-10 h-10 rounded-full mr-4" src="/static/<%= post.image %>" alt="Avatar of Jonathan Reinink">
+                        <div class="text-sm">
+                          <p class="text-gray-900 leading-none"><%= post.author %></p>
+                          <p class="text-gray-600"><%= new Date(post.lastPosted).toLocaleString() %></p>
+                          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                            Edit post
+                          </button>                            
+                          <form action="/dashboard/post/delete/<%= post.id %>" method="post">
+                            <button type="submit" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                              delete post
+                            </button>
+                            </form>                      
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+          <% } else { %>
+            not found
+          <% } %> %>
+  </div>
+
+
+  </div>
+
+  <script>
+
+    const delBtn = document.querySelector(".del")
+
+    delBtn.addEventListener("click", () => {
+        const id = delBtn.dataset.id
+       fetch(`/dashboard/post/delete/${id}`, {
+        method: "delete",
+       })
+    })
+
+  </script>
+</body>
+
+</html>

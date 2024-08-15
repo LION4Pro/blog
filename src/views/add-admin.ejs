@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <div class="flex">
+        <div class="w-64 h-screen bg-gray-800 text-white p-4">
+            <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+            <ul>
+                <li class="mb-4"><a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-700">Home</a></li>
+                <li class="mb-4"><a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-700">Messages</a></li>
+            </ul>
+        </div>
+
+        <div class="bg-white p-6 flex-1 rounded-lg shadow-md">
+            <% if(successMessage && successMessage.length > 0) { %>
+                <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+                    <div class="flex">
+                      <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                      <div>
+                        <p class="font-bold">Successfuly</p>
+                        <p class="text-sm"><%= successMessage %></p>
+                      </div>
+                    </div>
+                  </div>
+            <% } %>
+              
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Register a new admin</h2>
+
+                <form action="/admin/register" method="POST">
+                    <!-- Full Name -->
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700">Admin Name</label>
+                        <input type="text" id="name" name="username"
+                            class="mt-2 p-2 w-full border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700">Admin Email Address</label>
+                        <input type="email" id="email" name="email"
+                            class="mt-2 p-2 w-full border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700">Admin Password</label>
+                        <input type="password" id="password" name="password"
+                            class="mt-2 p-2 w-full border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                    </div>
+
+                    <!-- Register Button -->
+                    <button type="submit"
+                        class="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600 transition duration-200">Add</button>
+                </form>
+
+                <!-- Sign In Link -->
+                <!-- <p class="mt-6 text-gray-600 text-center">
+                    Already have an account?
+                    <a href="/login" class="text-blue-500 hover:underline">Sign in</a>.
+                </p>
+            </div> -->
+        </div>
+
+</body>
+
+</html>
