@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.use(cookieParser())
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
-    app.use('/images', express.static(path.join(__dirname, '../images')))
+    app.use('/images', express.static(path.join(__dirname, 'src/images')))
     app.use('/static', express.static(path.join(__dirname, 'images')))
     app.use(flash())
     app.use(session({
